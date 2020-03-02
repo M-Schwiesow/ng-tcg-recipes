@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'ng-tcg-recipes';
+  activeFeature: string = 'recipes';
+
+  onNavigate(feature: string) {
+    this.activeFeature = feature;
+  }
 }
