@@ -1,3 +1,4 @@
+import { AppRouterModule } from './app-router.module';
 import { RecipeService } from './features/recipes/recipe.service';
 import { ShoppingListService } from './features/shopping-list/shopping-list.service';
 import { ShoppingListComponent } from './features/shopping-list/shopping-list.component';
@@ -29,6 +30,7 @@ import { DropdownDirective } from './shared/dropdown.directive';
   imports: [
     BrowserModule,
     FormsModule,
+    AppRouterModule
   ],
   providers: [
     ShoppingListService,
