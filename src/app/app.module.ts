@@ -13,6 +13,9 @@ import { ShoppingListEditComponent } from './features/shopping-list/shopping-lis
 import { HeaderComponent } from './header/header.component';
 import { RecipeItemComponent } from './features/recipes/recipe-list/recipe-item/recipe-item.component';
 import { DropdownDirective } from './shared/dropdown.directive';
+import { AppRoutingModule } from './app-routing.module';
+import { RecipeLandingComponent } from './features/recipes/recipe-landing/recipe-landing.component';
+import { RecipeEditComponent } from './features/recipes/recipe-edit/recipe-edit.component';
 
 @NgModule({
   declarations: [
@@ -25,10 +28,13 @@ import { DropdownDirective } from './shared/dropdown.directive';
     HeaderComponent,
     RecipeItemComponent,
     DropdownDirective,
+    RecipeLandingComponent,
+    RecipeEditComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    AppRoutingModule
   ],
   providers: [
     ShoppingListService,
