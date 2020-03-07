@@ -15,6 +15,7 @@ import { RecipeItemComponent } from './features/recipes/recipe-list/recipe-item/
 import { DropdownDirective } from './shared/dropdown.directive';
 import { AppRoutingModule } from './app-routing.module';
 import { RecipeLandingComponent } from './features/recipes/recipe-landing/recipe-landing.component';
+import { RecipeEditComponent } from './features/recipes/recipe-edit/recipe-edit.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { RecipeLandingComponent } from './features/recipes/recipe-landing/recipe
     RecipeItemComponent,
     DropdownDirective,
     RecipeLandingComponent,
+    RecipeEditComponent,
   ],
   imports: [
     BrowserModule,
