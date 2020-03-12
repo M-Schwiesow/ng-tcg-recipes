@@ -1,25 +1,45 @@
+import { Subscription } from 'rxjs';
 import { ShoppingListService } from './../shopping-list.service';
 import { Ingredient } from './../../../shared/ingredient.model';
-import { Component, OnInit, ViewChild, Output, EventEmitter, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter, ElementRef, OnDestroy } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-shopping-list-edit',
   templateUrl: './shopping-list-edit.component.html',
   styleUrls: ['./shopping-list-edit.component.css']
 })
-export class ShoppingListEditComponent implements OnInit {
+export class ShoppingListEditComponent implements OnInit, OnDestroy {
 
-  @ViewChild('nameInput', {static: false}) nameInput: ElementRef;
-  @ViewChild('amountInput', {static: false}) amountInput: ElementRef;
+  shoppingListSubscription: Subscription;
+  editMode = false;
+  editedItemIndex: number;
+  editedItem: Ingredient;
+  @ViewChild('shoppingListForm', {static: false}) form: NgForm;
 
   constructor(private shoppingListService: ShoppingListService) { }
 
   ngOnInit(): void {
+    this.shoppingListSubscription = this.shoppingListService.startedEditing
+      .subscribe((index: number) => {
+        this.editMode = true;
+        this.editedItemIndex = index;
+        this.editedItem = this.shoppingListService.getIngredient(index);
+        this.form.setValue({
+          name: this.editedItem.name,
+          amount: this.editedItem.amount
+        })
+      });
+
   }
 
-  onAddClicked() {
-    const ingredientName: string = this.nameInput.nativeElement.value;
-    const ingredientAmount: number = this.amountInput.nativeElement.value;
-    this.shoppingListService.addItem(new Ingredient(ingredientName, ingredientAmount));
+  ngOnDestroy() {
+    this.shoppingListSubscription.unsubscribe();
+  }
+
+  onAddItem(form: NgForm) {
+    const value = form.value;
+    const newIngredient = new Ingredient(value.name, value.amount);
+    this.shoppingListService.addItem(newIngredient);
   }
 }

@@ -3,7 +3,7 @@ import { ShoppingListService } from './features/shopping-list/shopping-list.serv
 import { ShoppingListComponent } from './features/shopping-list/shopping-list.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { RecipesComponent } from './features/recipes/recipes.component';
@@ -34,6 +34,7 @@ import { RecipeEditComponent } from './features/recipes/recipe-edit/recipe-edit.
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule
   ],
   providers: [
