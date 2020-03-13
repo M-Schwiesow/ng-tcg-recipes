@@ -30,4 +30,24 @@ export class ShoppingListService {
     return this.ingredients[index];
   }
 
+  editIngredient(editedIngredient: Ingredient) {
+    const ingredientIndex: number = this.ingredients.findIndex(
+      (ingredient) => {
+        return ingredient.id === editedIngredient.id;
+      }
+    );
+    this.ingredients[ingredientIndex] = editedIngredient;
+    // this.ingredientsChanged.next(this.ingredients.slice()); //why does this work without emitting?
+  }
+
+  removeIngredient(removedIngredient: Ingredient) {
+    const deleteIndex: number = this.ingredients.findIndex(
+      (ingredient) => {
+        return ingredient.id === removedIngredient.id;
+      }
+    );
+    this.ingredients.splice(deleteIndex,1);
+    this.ingredientsChanged.next(this.ingredients.slice());
+  }
+
 }

@@ -13,9 +13,9 @@
       </div>
       <div class="row">
         <div class="col-xs-12">
-          <button class="btn btn-success" type="submit" [disabled]="!shoppingListForm.valid">Add</button>
-          <button class="btn btn-danger" type="button">Delete</button>
-          <button class="btn btn-primary" type="button">Clear</button>
+          <button class="btn btn-success" type="submit" [disabled]="!shoppingListForm.valid">{{editMode ? 'Update' : 'Add'}}</button>
+          <button *ngIf="editMode" class="btn btn-danger" type="button" (click)="onDelete(shoppingListForm)">Delete</button>
+          <button class="btn btn-primary" type="button" (click)="onClear(shoppingListForm)">Clear</button>
         </div>
       </div>
     </form>
