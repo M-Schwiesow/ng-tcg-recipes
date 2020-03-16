@@ -4,6 +4,7 @@ import { ShoppingListComponent } from './features/shopping-list/shopping-list.co
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { RecipesComponent } from './features/recipes/recipes.component';
@@ -35,7 +36,8 @@ import { RecipeEditComponent } from './features/recipes/recipe-edit/recipe-edit.
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    HttpClientModule,
+    AppRoutingModule,
   ],
   providers: [
     ShoppingListService,
