@@ -2,6 +2,7 @@
 
 # project notes
 tcg-recipes-notes.txt
+/src/app/shared/firebase-creds.model.ts
 
 # compiled output
 /dist

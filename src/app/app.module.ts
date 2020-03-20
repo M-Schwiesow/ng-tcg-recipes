@@ -1,3 +1,4 @@
+import { AlertComponent } from './shared/alert/alert.component';
 import { AuthInterceptorService } from './features/auth/auth-interceptor.service';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { AuthComponent } from './features/auth/auth.component';
@@ -36,6 +37,7 @@ import { RecipeEditComponent } from './features/recipes/recipe-edit/recipe-edit.
     RecipeEditComponent,
     AuthComponent,
     LoadingSpinnerComponent,
+    AlertComponent,
   ],
   imports: [
     BrowserModule,
