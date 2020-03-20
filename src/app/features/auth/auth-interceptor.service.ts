@@ -6,11 +6,6 @@ import { HttpInterceptor, HttpHandler, HttpParams, HttpRequest } from '@angular/
 @Injectable()
 export class AuthInterceptorService implements HttpInterceptor {
 
-  /**
-   * Progess note:  It looks as if we are currently not sending a request.
-   * Network activity is nil with the current setup.
-   */
-
   constructor(private authService: AuthService) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler) {

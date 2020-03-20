@@ -1,3 +1,4 @@
+import { FirebaseCreds } from './../../shared/firebase-creds.model';
 import { Router } from '@angular/router';
 import { User } from './user.model';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
@@ -21,14 +22,13 @@ export class AuthService {
   // it is a one-time event check
   user = new BehaviorSubject<User>(null);
   private tokenExpirationTimer: any;
+  private firebaseCreds: FirebaseCreds = new FirebaseCreds();
 
   constructor(private http: HttpClient, private router: Router) {}
 
   signup(email: string, password: string) {
-    // ?key=[API_KEY]
-    // api key, shame on you: AIzaSyArA5dHvv6HdYsj_Ukj4qeJqbP0bh5fXJw
     console.log('signup method called with email, password: ', email, password);
-    return this.http.post<FirebaseAuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyArA5dHvv6HdYsj_Ukj4qeJqbP0bh5fXJw',
+    return this.http.post<FirebaseAuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' + this.firebaseCreds.apiKey,
       {
         email: email,
         password: password,
@@ -40,7 +40,7 @@ export class AuthService {
   }
 
   login(email: string, password: string) {
-    return this.http.post<FirebaseAuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyArA5dHvv6HdYsj_Ukj4qeJqbP0bh5fXJw'
+    return this.http.post<FirebaseAuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' + this.firebaseCreds.apiKey
     , {
       email: email,
       password: password,
