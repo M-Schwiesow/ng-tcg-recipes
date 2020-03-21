@@ -1,13 +1,10 @@
+import { AuthModule } from './features/auth/auth.module';
 import { SharedModule } from './shared/shared.module';
 import { ShoppingListModule } from './features/shopping-list/shopping-list.module';
-import { AuthInterceptorService } from './features/auth/auth-interceptor.service';
-import { AuthComponent } from './features/auth/auth.component';
-import { RecipeService } from './features/recipes/recipe.service';
-import { ShoppingListService } from './features/shopping-list/shopping-list.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -19,18 +16,17 @@ import { CoreModule } from './core.module';
   declarations: [
     AppComponent,
     HeaderComponent,
-    AuthComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
     RecipesModule,
     ShoppingListModule,
     SharedModule,
     CoreModule,
+    AuthModule,
   ],
   // these can be provided from a core module, which would configure/manage commonly used services
   // providers: [
