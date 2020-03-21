@@ -12,30 +12,19 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { RecipesComponent } from './features/recipes/recipes.component';
-import { RecipeListComponent } from './features/recipes/recipe-list/recipe-list.component';
-import { RecipeDetailComponent } from './features/recipes/recipe-detail/recipe-detail.component';
 import { ShoppingListEditComponent } from './features/shopping-list/shopping-list-edit/shopping-list-edit.component';
 import { HeaderComponent } from './header/header.component';
-import { RecipeItemComponent } from './features/recipes/recipe-list/recipe-item/recipe-item.component';
 import { DropdownDirective } from './shared/dropdown.directive';
 import { AppRoutingModule } from './app-routing.module';
-import { RecipeLandingComponent } from './features/recipes/recipe-landing/recipe-landing.component';
-import { RecipeEditComponent } from './features/recipes/recipe-edit/recipe-edit.component';
+import { RecipesModule } from './features/recipes/recipes.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    RecipesComponent,
-    RecipeListComponent,
-    RecipeDetailComponent,
     ShoppingListComponent,
     ShoppingListEditComponent,
     HeaderComponent,
-    RecipeItemComponent,
     DropdownDirective,
-    RecipeLandingComponent,
-    RecipeEditComponent,
     AuthComponent,
     LoadingSpinnerComponent,
     AlertComponent,
@@ -47,6 +36,7 @@ import { RecipeEditComponent } from './features/recipes/recipe-edit/recipe-edit.
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
+    RecipesModule,
   ],
   providers: [
     ShoppingListService,
@@ -55,7 +45,7 @@ import { RecipeEditComponent } from './features/recipes/recipe-edit/recipe-edit.
   ],
   bootstrap: [AppComponent],
   /**
-   * Angular <= 8 requires the entryComponents for creating Components programmatically
+   * Angular <= 8 requires the entryComponents property for creating Components programmatically
    * Angular 9+ does not require the below property
    */
   entryComponents: [
