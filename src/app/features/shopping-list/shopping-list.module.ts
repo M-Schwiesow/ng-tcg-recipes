@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { SharedModule } from './../../shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { ShoppingListEditComponent } from './shopping-list-edit/shopping-list-edit.component';
 import { NgModule } from '@angular/core';
@@ -11,7 +11,7 @@ import { RouterModule } from '@angular/router';
     ShoppingListEditComponent,
   ],
   imports: [
-    CommonModule,
+    SharedModule,
     FormsModule,
     // this is a very small module, so splitting out its own router doesn't make much sense.  we can do it here.
     RouterModule.forChild([

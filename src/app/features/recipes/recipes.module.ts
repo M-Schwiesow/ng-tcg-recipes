@@ -1,8 +1,8 @@
+import { SharedModule } from './../../shared/shared.module';
 import { RecipesRoutingModule } from './recipes-routing.module';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
 
 import { RecipeItemComponent } from './recipe-list/recipe-item/recipe-item.component';
 import { RecipeLandingComponent } from './recipe-landing/recipe-landing.component';
@@ -22,7 +22,7 @@ import { RecipeListComponent } from './recipe-list/recipe-list.component';
   ],
   imports: [
     RecipesRoutingModule,
-    CommonModule,
+    SharedModule,
     RouterModule,
     ReactiveFormsModule,
   ]
