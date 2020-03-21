@@ -5,6 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { StoreModule } from '@ngrx/store';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -12,6 +13,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { ShoppingListService } from './features/shopping-list/shopping-list.service';
 import { RecipeService } from './features/recipes/recipe.service';
 import { AuthInterceptorService } from './features/auth/auth-interceptor.service';
+import { shoppingListReducer } from './features/shopping-list/store/shopping-list.reducer';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,7 @@ import { AuthInterceptorService } from './features/auth/auth-interceptor.service
     ShoppingListModule,
     SharedModule,
     AuthModule,
+    StoreModule.forRoot({shoppingList: shoppingListReducer}),
   ],
   // these can be provided from a core module, which would configure/manage commonly used services
   providers: [

@@ -1,12 +1,11 @@
 import { Ingredient } from './../../shared/ingredient.model';
-import { Injectable, EventEmitter } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { Subject } from 'rxjs';
 
 @Injectable()
 export class ShoppingListService {
 
   private ingredients: Ingredient[] = [];
-  // ingredientsChanged = new EventEmitter<Ingredient[]>();
   ingredientsChanged = new Subject<Ingredient[]>();
   startedEditing = new Subject<number>();
 
@@ -16,7 +15,6 @@ export class ShoppingListService {
   }
 
   addMany(ingredients: Ingredient[]) {
-    // ingredients.forEach(ingredient => this.ingredients.push(ingredient));
     // this is a neat little operator '...' that separates our array into something that push can handle (comma separated values)
     this.ingredients.push(...ingredients);
     this.ingredientsChanged.next(this.ingredients.slice());
@@ -37,7 +35,6 @@ export class ShoppingListService {
       }
     );
     this.ingredients[ingredientIndex] = editedIngredient;
-    // this.ingredientsChanged.next(this.ingredients.slice()); //why does this work without emitting?
   }
 
   removeIngredient(removedIngredient: Ingredient) {
