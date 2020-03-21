@@ -4,6 +4,10 @@
 tcg-recipes-notes.txt
 /src/app/shared/firebase-creds.model.ts
 
+#firebase gunk
+.firebase**
+firebase.json
+
 # compiled output
 /dist
 /tmp

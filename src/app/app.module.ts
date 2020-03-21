@@ -4,12 +4,14 @@ import { ShoppingListModule } from './features/shopping-list/shopping-list.modul
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { AppRoutingModule } from './app-routing.module';
-import { CoreModule } from './core.module';
+import { ShoppingListService } from './features/shopping-list/shopping-list.service';
+import { RecipeService } from './features/recipes/recipe.service';
+import { AuthInterceptorService } from './features/auth/auth-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -23,15 +25,14 @@ import { CoreModule } from './core.module';
     AppRoutingModule,
     ShoppingListModule,
     SharedModule,
-    CoreModule,
     AuthModule,
   ],
   // these can be provided from a core module, which would configure/manage commonly used services
-  // providers: [
-  //   ShoppingListService,
-  //   RecipeService,
-  //   {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}
-  // ],
+  providers: [
+    ShoppingListService,
+    RecipeService,
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
