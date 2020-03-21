@@ -1,3 +1,4 @@
+import { GeneratedComponentDirective } from './shared/generated-component-directive/generated-component.directive';
 import { AlertComponent } from './shared/alert/alert.component';
 import { AuthInterceptorService } from './features/auth/auth-interceptor.service';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
@@ -38,6 +39,7 @@ import { RecipeEditComponent } from './features/recipes/recipe-edit/recipe-edit.
     AuthComponent,
     LoadingSpinnerComponent,
     AlertComponent,
+    GeneratedComponentDirective,
   ],
   imports: [
     BrowserModule,
@@ -51,6 +53,13 @@ import { RecipeEditComponent } from './features/recipes/recipe-edit/recipe-edit.
     RecipeService,
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  /**
+   * Angular <= 8 requires the entryComponents for creating Components programmatically
+   * Angular 9+ does not require the below property
+   */
+  entryComponents: [
+    AlertComponent,
+  ]
 })
 export class AppModule { }

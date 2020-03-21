@@ -1,19 +1,29 @@
+import { GeneratedComponentDirective } from './../../shared/generated-component-directive/generated-component.directive';
+import { AlertComponent } from './../../shared/alert/alert.component';
 import { Router } from '@angular/router';
 import { AuthService, FirebaseAuthResponseData } from './auth.service';
-import { Component } from '@angular/core';
+import { Component, ComponentFactoryResolver, ViewChild, ViewContainerRef, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html'
 })
-export class AuthComponent {
+export class AuthComponent implements OnDestroy {
   isSignupMode: boolean = true;
   isLoading: boolean = false;
   error: string = null;
+  @ViewChild(GeneratedComponentDirective, {static: false}) alertHost: GeneratedComponentDirective;
+  private closeAlertSub: Subscription;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private componentFactoryResolver: ComponentFactoryResolver) {}
+
+  ngOnDestroy() {
+    if(this.closeAlertSub) {
+      this.closeAlertSub.unsubscribe();
+    }
+  }
 
   onSwitchMode() {
     this.isSignupMode = !this.isSignupMode;
@@ -43,7 +53,8 @@ export class AuthComponent {
       this.isLoading = false;
       this.router.navigate(['/recipes']);
     }, errorResponse => {
-      this.error = errorResponse;
+      // this.error = errorResponse; // set error message for ngIf instantiation
+      this.showErrorAlert(errorResponse);
       this.isLoading = false;
     });
     form.reset();
@@ -52,5 +63,25 @@ export class AuthComponent {
   onHandleError() {
     console.log("onhandleerror")
     this.error = null;
+  }
+
+  /**
+   * Programmatic creation of a component
+   * @param message an input to the created component
+   */
+  private showErrorAlert(message: string) {
+    // create the component factory
+    const alertCompFactory = this.componentFactoryResolver.resolveComponentFactory(AlertComponent);
+    // retrieve the view container reference from the target ViewChild
+    const hostViewContainerRef = this.alertHost.viewContainerRef;
+    // clear any pre-existing elements
+    hostViewContainerRef.clear();
+    // create a reference to the component, so that we can act on it - set inputs, subscribe to events, etc.
+    const componentReference = hostViewContainerRef.createComponent(alertCompFactory);
+    
+    componentReference.instance.message = message;
+    this.closeAlertSub = componentReference.instance.close.subscribe(() => {
+      hostViewContainerRef.clear();
+    });
   }
 }
