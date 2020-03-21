@@ -3,8 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/recipes', pathMatch: 'full'},
-  // { path: 'recipes', loadChildren: './features/recipes/recipes.module#RecipesModule' },
+  // Note there are two different ways to loadChildren - the function is more modern; I wonder what it does, exactly.
   { path: 'recipes', loadChildren: () => import('./features/recipes/recipes.module').then(mod => mod.RecipesModule)},
+  { path: 'shopping-list', loadChildren: () => import('./features/shopping-list/shopping-list.module').then(mod => mod.ShoppingListModule)},
+  { path: 'auth', loadChildren: './features/auth/auth.module#AuthModule'}
   /*
   this catch-all, which was fine when we had just one routing module causes all
   routes not explicitly caught by *this* routing module to redirect, circumventing

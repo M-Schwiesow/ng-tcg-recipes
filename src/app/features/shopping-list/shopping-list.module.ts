@@ -15,7 +15,7 @@ import { RouterModule } from '@angular/router';
     FormsModule,
     // this is a very small module, so splitting out its own router doesn't make much sense.  we can do it here.
     RouterModule.forChild([
-      { path: 'shopping-list', component: ShoppingListComponent },
+      { path: '', component: ShoppingListComponent },
     ]),
   ]
 })
