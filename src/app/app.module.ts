@@ -13,6 +13,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { AppRoutingModule } from './app-routing.module';
 import { RecipesModule } from './features/recipes/recipes.module';
+import { CoreModule } from './core.module';
 
 @NgModule({
   declarations: [
@@ -29,12 +30,14 @@ import { RecipesModule } from './features/recipes/recipes.module';
     RecipesModule,
     ShoppingListModule,
     SharedModule,
+    CoreModule,
   ],
-  providers: [
-    ShoppingListService,
-    RecipeService,
-    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}
-  ],
+  // these can be provided from a core module, which would configure/manage commonly used services
+  // providers: [
+  //   ShoppingListService,
+  //   RecipeService,
+  //   {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}
+  // ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
