@@ -24,7 +24,6 @@ import { RecipeListComponent } from './recipe-list/recipe-list.component';
     RecipesRoutingModule,
     CommonModule,
     RouterModule,
-    FormsModule,
     ReactiveFormsModule,
   ]
 })

@@ -1,3 +1,4 @@
+import { ShoppingListModule } from './features/shopping-list/shopping-list.module';
 import { GeneratedComponentDirective } from './shared/generated-component-directive/generated-component.directive';
 import { AlertComponent } from './shared/alert/alert.component';
 import { AuthInterceptorService } from './features/auth/auth-interceptor.service';
@@ -21,8 +22,6 @@ import { RecipesModule } from './features/recipes/recipes.module';
 @NgModule({
   declarations: [
     AppComponent,
-    ShoppingListComponent,
-    ShoppingListEditComponent,
     HeaderComponent,
     DropdownDirective,
     AuthComponent,
@@ -37,6 +36,7 @@ import { RecipesModule } from './features/recipes/recipes.module';
     HttpClientModule,
     AppRoutingModule,
     RecipesModule,
+    ShoppingListModule,
   ],
   providers: [
     ShoppingListService,

@@ -5,9 +5,13 @@ import { RouterModule, Routes } from '@angular/router';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/recipes', pathMatch: 'full'},
-  { path: 'shopping-list', component: ShoppingListComponent },
   { path: 'auth', component: AuthComponent },
-  { path: '**', redirectTo: '/recipes' },
+  /*
+  this catch-all, which was fine when we had just one routing module causes all
+  routes not explicitly caught by *this* routing module to redirect, circumventing
+  all other/child routing modules
+  */
+  // { path: '**', redirectTo: '/recipes' },
 ];
 
 @NgModule({
