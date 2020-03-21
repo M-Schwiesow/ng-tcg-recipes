@@ -9,7 +9,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { AppRoutingModule } from './app-routing.module';
-import { RecipesModule } from './features/recipes/recipes.module';
 import { CoreModule } from './core.module';
 
 @NgModule({
@@ -22,7 +21,6 @@ import { CoreModule } from './core.module';
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
-    RecipesModule,
     ShoppingListModule,
     SharedModule,
     CoreModule,
