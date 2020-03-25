@@ -14,7 +14,10 @@ import { ShoppingListService } from './features/shopping-list/shopping-list.serv
 import { RecipeService } from './features/recipes/recipe.service';
 import { AuthInterceptorService } from './features/auth/auth-interceptor.service';
 import { shoppingListReducer } from './features/shopping-list/store/shopping-list.reducer';
-
+/*
+TODOS:
+  - Clean up references to ShoppingListService, remove class
+*/
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +33,6 @@ import { shoppingListReducer } from './features/shopping-list/store/shopping-lis
     AuthModule,
     StoreModule.forRoot({shoppingList: shoppingListReducer}),
   ],
-  // these can be provided from a core module, which would configure/manage commonly used services
   providers: [
     ShoppingListService,
     RecipeService,
