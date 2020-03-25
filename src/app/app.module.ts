@@ -1,3 +1,4 @@
+import { appReducer } from './features/store/app.reducer';
 import { AuthModule } from './features/auth/auth.module';
 import { SharedModule } from './shared/shared.module';
 import { ShoppingListModule } from './features/shopping-list/shopping-list.module';
@@ -13,7 +14,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { ShoppingListService } from './features/shopping-list/shopping-list.service';
 import { RecipeService } from './features/recipes/recipe.service';
 import { AuthInterceptorService } from './features/auth/auth-interceptor.service';
-import { shoppingListReducer } from './features/shopping-list/store/shopping-list.reducer';
+import * as fromAppReducer from './features/store/app.reducer';
+
 /*
 TODOS:
   - Clean up references to ShoppingListService, remove class
@@ -31,7 +33,7 @@ TODOS:
     ShoppingListModule,
     SharedModule,
     AuthModule,
-    StoreModule.forRoot({shoppingList: shoppingListReducer}),
+    StoreModule.forRoot(fromAppReducer.appReducer),
   ],
   providers: [
     ShoppingListService,

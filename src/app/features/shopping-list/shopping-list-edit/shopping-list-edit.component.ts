@@ -6,7 +6,7 @@ import { Ingredient } from './../../../shared/ingredient.model';
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import * as ShoppingListActions from './../store/shopping-list.actions';
-import * as fromShoppingList from './../store/shopping-list.reducer';
+import * as fromAppReducer from '../../store/app.reducer';
 
 @Component({
   selector: 'app-shopping-list-edit',
@@ -21,7 +21,7 @@ export class ShoppingListEditComponent implements OnInit, OnDestroy {
   editedItem: Ingredient;
   @ViewChild('shoppingListForm', {static: false}) form: NgForm;
 
-  constructor(private shoppingListService: ShoppingListService, private store: Store<fromShoppingList.AppState>) { }
+  constructor(private shoppingListService: ShoppingListService, private store: Store<fromAppReducer.AppState>) { }
 
   ngOnInit(): void {
     /**
