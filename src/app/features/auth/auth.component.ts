@@ -1,28 +1,40 @@
 import { GeneratedComponentDirective } from './../../shared/generated-component-directive/generated-component.directive';
 import { AlertComponent } from './../../shared/alert/alert.component';
-import { Router } from '@angular/router';
-import { AuthService, FirebaseAuthResponseData } from './auth.service';
-import { Component, ComponentFactoryResolver, ViewChild, ViewContainerRef, OnDestroy } from '@angular/core';
+import { Component, ComponentFactoryResolver, ViewChild, ViewContainerRef, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
+import * as fromAppReducer from '../store/app.reducer';
+import * as AuthActions from './store/auth.actions';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html'
 })
-export class AuthComponent implements OnDestroy {
+export class AuthComponent implements OnInit, OnDestroy {
   isSignupMode: boolean = true;
   isLoading: boolean = false;
   error: string = null;
   @ViewChild(GeneratedComponentDirective, {static: false}) alertHost: GeneratedComponentDirective;
   private closeAlertSub: Subscription;
+  private storeSub: Subscription;
 
-  constructor(private authService: AuthService, private router: Router, private componentFactoryResolver: ComponentFactoryResolver) {}
+  constructor(private componentFactoryResolver: ComponentFactoryResolver, private store: Store<fromAppReducer.AppState>) {}
 
+  ngOnInit() {
+    this.storeSub = this.store.select('auth').subscribe(authState => {
+      this.isLoading = authState.isLoading;
+      this.error = authState.authError;
+      if(this.error) {
+        this.showErrorAlert(this.error);
+      }
+    })
+  }
   ngOnDestroy() {
     if(this.closeAlertSub) {
       this.closeAlertSub.unsubscribe();
     }
+    this.storeSub.unsubscribe();
   }
 
   onSwitchMode() {
@@ -37,32 +49,19 @@ export class AuthComponent implements OnDestroy {
     const email = form.value.email;
     const password = form.value.password;
 
-    let authObservable: Observable<FirebaseAuthResponseData>;
-
-    this.isLoading = true;
-
     if(this.isSignupMode) {
       // send signup request
-      authObservable = this.authService.signup(email,password);
+      this.store.dispatch(new AuthActions.SignupStart({email: email, password: password}));
     } else {
       // login method
-      authObservable = this.authService.login(email, password);
+      this.store.dispatch(new AuthActions.LoginStart({email: email, password: password}));
     }
-    authObservable.subscribe(response => {
-      console.log(response);
-      this.isLoading = false;
-      this.router.navigate(['/recipes']);
-    }, errorResponse => {
-      // this.error = errorResponse; // set error message for ngIf instantiation
-      this.showErrorAlert(errorResponse);
-      this.isLoading = false;
-    });
+
     form.reset();
   }
 
   onHandleError() {
-    console.log("onhandleerror")
-    this.error = null;
+    this.store.dispatch(new AuthActions.ClearError());
   }
 
   /**

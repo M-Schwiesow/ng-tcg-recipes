@@ -3,7 +3,8 @@
 # project notes
 tcg-recipes-notes.txt
 /src/app/shared/firebase-creds.model.ts
-
+# removing environments folder
+/src/environments
 #firebase gunk
 .firebase**
 firebase.json

@@ -1,3 +1,4 @@
+import { AuthEffects } from './features/auth/store/auth.effects';
 import { appReducer } from './features/store/app.reducer';
 import { AuthModule } from './features/auth/auth.module';
 import { SharedModule } from './shared/shared.module';
@@ -15,6 +16,7 @@ import { ShoppingListService } from './features/shopping-list/shopping-list.serv
 import { RecipeService } from './features/recipes/recipe.service';
 import { AuthInterceptorService } from './features/auth/auth-interceptor.service';
 import * as fromAppReducer from './features/store/app.reducer';
+import { EffectsModule } from '@ngrx/effects';
 
 /*
 TODOS:
@@ -34,6 +36,7 @@ TODOS:
     SharedModule,
     AuthModule,
     StoreModule.forRoot(fromAppReducer.appReducer),
+    EffectsModule.forRoot([AuthEffects]),
   ],
   providers: [
     ShoppingListService,
