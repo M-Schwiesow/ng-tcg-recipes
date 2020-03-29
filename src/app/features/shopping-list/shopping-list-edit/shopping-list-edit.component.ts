@@ -1,7 +1,6 @@
 import { take, map, exhaustMap, tap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { ShoppingListService } from './../shopping-list.service';
 import { Ingredient } from './../../../shared/ingredient.model';
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
@@ -21,7 +20,7 @@ export class ShoppingListEditComponent implements OnInit, OnDestroy {
   editedItem: Ingredient;
   @ViewChild('shoppingListForm', {static: false}) form: NgForm;
 
-  constructor(private shoppingListService: ShoppingListService, private store: Store<fromAppReducer.AppState>) { }
+  constructor(private store: Store<fromAppReducer.AppState>) { }
 
   ngOnInit(): void {
       /**
@@ -52,7 +51,6 @@ export class ShoppingListEditComponent implements OnInit, OnDestroy {
     if(this.editMode) {
       this.editedItem.name = form.value.name;
       this.editedItem.amount = form.value.amount;
-      // this.shoppingListService.editIngredient(this.editedItem);
       this.store.dispatch(new ShoppingListActions.EditIngredient(this.editedItem));
       this.editMode = false;
       form.reset();
@@ -60,7 +58,6 @@ export class ShoppingListEditComponent implements OnInit, OnDestroy {
       const value = form.value;
       const newIngredient = new Ingredient(Math.random(), value.name, value.amount);
       this.store.dispatch(new ShoppingListActions.AddIngredient(newIngredient));
-      // this.shoppingListService.addItem(newIngredient);
       form.reset();
     }
   }
@@ -72,7 +69,6 @@ export class ShoppingListEditComponent implements OnInit, OnDestroy {
   }
 
   onDelete(form: NgForm) {
-    // this.shoppingListService.removeIngredient(this.editedItem);
     this.store.dispatch(new ShoppingListActions.DeleteIngredient());
     this.onClear(form);
   }

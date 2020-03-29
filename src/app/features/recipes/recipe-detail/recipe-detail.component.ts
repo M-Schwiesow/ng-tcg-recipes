@@ -1,7 +1,5 @@
 import * as ShoppingListActions from './../../shopping-list/store/shopping-list.actions';
-import { RecipeService } from './../recipe.service';
-import { ShoppingListService } from './../../shopping-list/shopping-list.service';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Recipe } from '../recipe.model';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -19,7 +17,7 @@ export class RecipeDetailComponent implements OnInit {
   recipe: Recipe;
   recipeId: number;
 
-  constructor(private shoppingListService: ShoppingListService, private store: Store<fromAppReducer.AppState>, private recipeService: RecipeService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private store: Store<fromAppReducer.AppState>, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     this.route.paramMap.pipe(

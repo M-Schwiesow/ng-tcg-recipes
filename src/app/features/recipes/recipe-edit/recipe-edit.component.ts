@@ -2,7 +2,6 @@ import { map } from 'rxjs/operators';
 import { Recipe } from './../recipe.model';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { RecipeService } from '../recipe.service';
 import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import * as fromAppReducer from '../../store/app.reducer';
@@ -22,7 +21,7 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   recipeForm: FormGroup;
   private storeSub: Subscription;
 
-  constructor(private recipeService: RecipeService, private route: ActivatedRoute, private router: Router, private store: Store<fromAppReducer.AppState>) { }
+  constructor(private route: ActivatedRoute, private router: Router, private store: Store<fromAppReducer.AppState>) { }
 
   ngOnInit(): void {
     this.route.paramMap
@@ -91,7 +90,6 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
         this.recipe.description = formValues['description'];
         this.recipe.imagePath = formValues['imagePath'];
         this.recipe.ingredients = formValues['ingredients'];
-        // this.recipeService.updateRecipe(this.recipe);
         this.store.dispatch(new RecipeActions.UpdateRecipe(this.recipe));
       } else {
         /**

@@ -1,6 +1,5 @@
 import { environment } from './../environments/environment';
 import { AuthEffects } from './features/auth/store/auth.effects';
-import { appReducer } from './features/store/app.reducer';
 import { AuthModule } from './features/auth/auth.module';
 import { SharedModule } from './shared/shared.module';
 import { ShoppingListModule } from './features/shopping-list/shopping-list.module';
@@ -13,18 +12,13 @@ import { StoreModule } from '@ngrx/store';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { AppRoutingModule } from './app-routing.module';
-import { ShoppingListService } from './features/shopping-list/shopping-list.service';
-import { RecipeService } from './features/recipes/recipe.service';
 import { AuthInterceptorService } from './features/auth/auth-interceptor.service';
 import * as fromAppReducer from './features/store/app.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { RecipeEffects } from './features/recipes/store/recipe.effects';
-/*
-TODOS:
-  - Clean up references to ShoppingListService, remove class
-*/
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,8 +38,6 @@ TODOS:
     StoreRouterConnectingModule.forRoot(),
   ],
   providers: [
-    ShoppingListService,
-    RecipeService,
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}
   ],
   bootstrap: [AppComponent],
