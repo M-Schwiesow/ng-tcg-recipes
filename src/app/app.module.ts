@@ -1,3 +1,4 @@
+import { environment } from './../environments/environment';
 import { AuthEffects } from './features/auth/store/auth.effects';
 import { appReducer } from './features/store/app.reducer';
 import { AuthModule } from './features/auth/auth.module';
@@ -17,7 +18,9 @@ import { RecipeService } from './features/recipes/recipe.service';
 import { AuthInterceptorService } from './features/auth/auth-interceptor.service';
 import * as fromAppReducer from './features/store/app.reducer';
 import { EffectsModule } from '@ngrx/effects';
-
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { RecipeEffects } from './features/recipes/store/recipe.effects';
 /*
 TODOS:
   - Clean up references to ShoppingListService, remove class
@@ -36,7 +39,9 @@ TODOS:
     SharedModule,
     AuthModule,
     StoreModule.forRoot(fromAppReducer.appReducer),
-    EffectsModule.forRoot([AuthEffects]),
+    EffectsModule.forRoot([AuthEffects, RecipeEffects]),
+    StoreDevtoolsModule.instrument({logOnly: environment.production}),
+    StoreRouterConnectingModule.forRoot(),
   ],
   providers: [
     ShoppingListService,

@@ -48,7 +48,6 @@ export function shoppingListReducer(state = initialState, action: ShoppingListAc
         editedIngredient: null
       };
     case ShoppingListActions.START_EDIT:
-
       return {
         ...state,
         editedIngredientIndex : action.payload,

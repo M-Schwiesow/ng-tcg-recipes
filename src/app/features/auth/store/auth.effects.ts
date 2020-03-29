@@ -15,7 +15,7 @@ const handleAuthentication = (responseData: FirebaseAuthResponseData) => {
   const expirationDate = new Date(new Date().getTime() + +responseData.expiresIn * 1000);
   const user = new User(responseData.email, responseData.localId, responseData.idToken, expirationDate);
   localStorage.setItem('userData', JSON.stringify(user));
-  return new AuthActions.AuthenticateSuccess({email: responseData.email, userId: responseData.localId, token: responseData.idToken, expirationDate: expirationDate});
+  return new AuthActions.AuthenticateSuccess({email: responseData.email, userId: responseData.localId, token: responseData.idToken, expirationDate: expirationDate, redirect: true});
 };
 
 const handleError = (errorResponse: HttpErrorResponse) => {
@@ -81,7 +81,6 @@ export class AuthEffects {
   authLogin = this.actions$.pipe(
     ofType(AuthActions.LOGIN_START),  // ofType is a pre-built filter for a pipe that will only include the actions with a type matching what we specify
     switchMap((authData: AuthActions.LoginStart) => {
-      console.log('login called with email: ', authData.payload.email);
       return this.http.post<FirebaseAuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' + environment.firebaseApiKey
       , {
         email: authData.payload.email,
@@ -122,7 +121,8 @@ export class AuthEffects {
             email: userData.email,
             userId: userData.id,
             token: userData._token,
-            expirationDate: new Date(userData._tokenExpirationDate)
+            expirationDate: new Date(userData._tokenExpirationDate),
+            redirect: false
           });
         }
         return {type: 'This is an unregistered action type'};
@@ -132,8 +132,10 @@ export class AuthEffects {
     @Effect({dispatch: false})
     authRedirect = this.actions$.pipe(
       ofType(AuthActions.AUTHENTICATE_SUCCESS), 
-      tap(() => {
-      this.router.navigate(['/']);
+      tap((authSuccessAction: AuthActions.AuthenticateSuccess) => {
+        if(authSuccessAction.payload.redirect){
+          this.router.navigate(['/']);
+        }
     }));
 
     @Effect({dispatch: false})

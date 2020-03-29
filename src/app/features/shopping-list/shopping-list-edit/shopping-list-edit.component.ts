@@ -24,25 +24,6 @@ export class ShoppingListEditComponent implements OnInit, OnDestroy {
   constructor(private shoppingListService: ShoppingListService, private store: Store<fromAppReducer.AppState>) { }
 
   ngOnInit(): void {
-    /**
-     * Candidate B
-     */
-      // this.shoppingListSubscription = this.shoppingListService.startedEditing
-      // .subscribe((index: number) => {
-      //   this.editMode = true;
-      //   this.editedItemIndex = index;
-      //   this.store.select('shoppingList').pipe(take(1), tap(ingredients => {
-      //     console.log('store response, ingredients: ', ingredients);
-      //     this.editedItem = {
-      //       ...ingredients.ingredients[this.editedItemIndex]
-      //     };
-      //     console.log('this.editedItem after setting: ', this.editedItem);
-      //     this.form.setValue({
-      //       name: this.editedItem.name,
-      //       amount: this.editedItem.amount
-      //     });
-      //   })).subscribe();
-      // });
       /**
        * Third Path
        */
@@ -59,19 +40,6 @@ export class ShoppingListEditComponent implements OnInit, OnDestroy {
           this.editMode = false;
         }
       });
-    //   /**
-    //    * Original
-    //    */
-    //   this.shoppingListSubscription = this.shoppingListService.startedEditing
-    //   .subscribe((index: number) => {
-    //     this.editMode = true;
-    //     this.editedItemIndex = index;
-    //     this.editedItem = this.shoppingListService.getIngredient(index);
-    //     this.form.setValue({
-    //       name: this.editedItem.name,
-    //       amount: this.editedItem.amount
-    //     })
-    //   });
 
   }
 

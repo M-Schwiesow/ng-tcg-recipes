@@ -1,9 +1,11 @@
-import { AuthService } from './../features/auth/auth.service';
 import { RecipeService } from './../features/recipes/recipe.service';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Recipe } from '../features/recipes/recipe.model';
-import { map, tap, take, exhaustMap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
+import * as fromAppReducer from '../features/store/app.reducer';
+import { Store } from '@ngrx/store';
+import * as RecipesAction from '../features/recipes/store/recipe.actions';
 
 /**
  * Service for saving data from our application.
@@ -12,7 +14,7 @@ import { map, tap, take, exhaustMap } from 'rxjs/operators';
  */
 @Injectable({providedIn: 'root'})
 export class DataStorageService {
-  constructor(private http: HttpClient, private recipeService: RecipeService, private authService: AuthService) {}
+  constructor(private http: HttpClient, private recipeService: RecipeService, private store: Store<fromAppReducer.AppState>) {}
 
   storeRecipes() {
     const recipes = this.recipeService.getRecipes();
@@ -30,7 +32,7 @@ export class DataStorageService {
       });
     }), 
     tap(recipes => {
-      this.recipeService.replaceRecipeList(recipes);
+      this.store.dispatch(new RecipesAction.SetRecipes(recipes));
     })
     );
 
